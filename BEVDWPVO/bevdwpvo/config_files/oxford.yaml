@@ -1,0 +1,105 @@
+model_conf:
+  use_pretrained_model: false
+
+backbone_conf:
+  x_bound: [-25.6, 25.6, 0.2]
+  y_bound: [-25.6, 25.6, 0.2]
+  z_bound: [-5, 3, 8]
+  d_bound: [2.0, 30.0, 0.25]
+  final_dim: [224, 384]
+  output_channels: 80
+  downsample_factor: 16
+  img_backbone_conf:
+    type: 'ResNet'
+    depth: 50
+    frozen_stages: 0
+    out_indices: [0, 1, 2, 3]
+    norm_eval: false
+    init_cfg:
+      type: 'Pretrained'
+      checkpoint: 'torchvision://resnet50'
+  img_neck_conf:
+    type: 'SECONDFPN'
+    in_channels: [256, 512, 1024, 2048]
+    upsample_strides: [0.25, 0.5, 1, 2]
+    out_channels: [128, 128, 128, 128]
+  depth_net_conf:
+    in_channels: 512
+    mid_channels: 512
+
+head_conf: {}
+
+DWP_Solver_conf:
+  log_dir: "/"
+  gpuid: "cuda:0"
+  cart_resolution: 0.2
+  cart_pixel_width: 256
+  networks:
+    unet:
+      bilinear: true
+      first_feature_dimension: 8
+      score_sigmoid: true
+    keypoint_block:
+      patch_size: 8
+    matcher_block:
+      softmax_temp: 0.01
+      score_comp: true
+  lr: 0.0001
+  window_size: 2
+  print_rate: 100
+  log_rate: 10
+  vis_num: 5
+  vis_keypoint_nms: 0.01
+  augmentation:
+    rot_max: 0.26
+
+training_params:
+  seed: 2025
+  NUM_WORKERS: 6
+  batch_size_train: 8
+  batch_size_test: 1
+  epoch_save: 1
+
+  NO_DEPTH: true
+
+  DEBUG: false
+  JUST_TEST: false
+
+  feature_size: 256
+  division: 0.4
+  dataset_type: "oxford"
+  dataset_item_range: "0.0-4.0"
+  other_features: ""
+  pickle_name: "pickle_d0_d4_r15_r45.txt"
+  
+  IS_MONO: true
+  IS_MONO_CUT: true
+
+  other_downsample_factor: 8
+
+  use_keep_range: true
+  range_keep: 25.6
+
+  stop_weight_scores_firstNsteps: true
+  firstNsteps: 20000
+
+  SPLIT_R_t: true
+  split_firstNsteps: 10000
+
+  freeze_bev: true
+  freeze_bev_firstNsteps: 5000
+
+  USE_GRAD_CLIP: false
+  max_norm: 1.0
+
+  NO_WEIGHT_SCORES: false
+  depthloss_rate: 1
+  R_LOSS_enhenace: 10
+  use_global_mask: false
+  patch_size: "normal"
+
+  lr_start: 0.0001
+
+
+  # NAME: ""
+  # START: 
