@@ -62,3 +62,5 @@ cd ./BEVDWPVO/BEVDWPVO/bevdwpvo/
 python train.py --config=./config_files/nclt.yaml
 python test.py --config=./config_files/nclt_test.yaml
 ```
+
+Pretrained models (the same models used in the paper) trained on the NCLT, Oxford, and KITTI datasets, including `NCLT_256_04.pth`, `oxford_256_04.pth`, `kitti_256_04.pth`, and other pretrained models, can be downloaded via: https://pan.baidu.com/s/19o4i8MiEMKWpxLuhP_8MLg?pwd=vkpy
