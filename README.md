@@ -1,4 +1,4 @@
-# BEV-DWPVO: BEV-based Differentiable Weighted Procrustes for Low Scale-drift Monocular Visual Odometry on Ground
+# BEV-DWPVO
 
 ## Table of Contents
 
@@ -12,16 +12,45 @@
 
 **BEV-DWPVO** is a monocular visual odometry system designed for ground vehicles. The system leverages a unified, metric-scaled Bird's-Eye View (BEV) representation to reduce scale drift and simplifies 6-DoF pose estimation to 3-DoF by utilizing the ground plane assumption. The framework employs a differentiable weighted Procrustes solver for pose estimation and requires only pose supervision for end-to-end training, without any auxiliary tasks. The system achieves superior performance on the challenging NCLT and Oxford datasets, particularly in scale consistency and pose accuracy. While maintaining competitive performance on KITTI.
 
+### Framework
+![System framework](./README/figs/BEV-DWPVO.jpg)
+
+*Overview of the proposed BEV-DWPVO framework, including the PV-BEV encoder, keypoint extraction module, and pose estimation module.*
+
+### Performance Comparison
+![NCLT Comparison](./README/figs/Performance_comparison.png)
+
+*Performance comparison of different methods on NCLT and Oxford datasets. Our method achieves the best overall performance across all metrics.*
+
+### Visualizations
+![Qualitative Analysis](./README/figs/qualitative.png)
+
+*Trajectory and keypoint matching visualization. The NCLT dataset uses a forward monocular camera, while the Oxford dataset uses a rear monocular camera.*
+
+![Oxford Intermediate](./README/figs/oxford_intermediate.gif)
+
+*Intermediate Processes and Visualizations on Oxford seq. 01-11-12, showing keypoint extraction and matching in BEV space.*
+
+![NCLT Intermediate](./README/figs/nclt_intermediate.gif)
+
+*Intermediate Processes and Visualizations on NCLT seq. 12-03-17, demonstrating robust performance under challenging conditions.*
+
+![Oxford Comparison](./README/figs/oxford_comparison.gif)
+
+*Experiments on Oxford seq. 01-11-12 comparing BEV-DWPVO with ORB-SLAM3, DF-VO, and DROID-SLAM.*
+
+![NCLT Comparison](./README/figs/nclt_comparison.gif)
+
+*Experiments on NCLT seq. 12-03-17 comparing BEV-DWPVO with BEV(CNNs+MLPs), BEV(Global-Corr), and BEV(Local-Corr).*
+
 ## Environment Setup
 
 ### Prerequisites
-
 - CUDA 11.8
 - Python 3.9.18
 - PyTorch 1.13.0
 
 ### Installation
-
 1. Create and activate a conda environment:
 ```bash
 conda create -n bevdwpvo python=3.9.18
@@ -69,5 +98,3 @@ cd ./BEVDWPVO/BEVDWPVO/bevdwpvo/
 python train.py --config=./config_files/nclt.yaml
 python test.py --config=./config_files/nclt_test.yaml
 ```
-
-Pretrained models (the same models used in the paper) trained on the NCLT, Oxford, and KITTI datasets, including `NCLT_256_04.pth`, `oxford_256_04.pth`, `kitti_256_04.pth`, and other pretrained models, can be downloaded via: https://pan.baidu.com/s/19o4i8MiEMKWpxLuhP_8MLg?pwd=vkpy
