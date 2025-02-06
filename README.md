@@ -29,11 +29,11 @@
 
 ![Oxford Intermediate](./README/figs/oxford_intermediate.gif)
 
-*Intermediate Processes and Visualizations on Oxford seq. 01-11-12, showing keypoint extraction and matching in BEV space.*
+*Intermediate Processes and Visualizations on Oxford, showing keypoint extraction and matching in BEV space.*
 
 ![NCLT Intermediate](./README/figs/nclt_intermediate.gif)
 
-*Intermediate Processes and Visualizations on NCLT seq. 12-03-17, demonstrating robust performance under challenging conditions.*
+*Intermediate Processes and Visualizations on NCLT, demonstrating robust performance under challenging conditions.*
 
 ![Oxford Comparison](./README/figs/oxford_comparison.gif)
 
@@ -41,7 +41,7 @@
 
 ![NCLT Comparison](./README/figs/nclt_comparison.gif)
 
-*Experiments on NCLT seq. 12-03-17 comparing BEV-DWPVO with BEV(CNNs+MLPs), BEV(Global-Corr), and BEV(Local-Corr).*
+*Experiments on NCLT seq. 12-03-17 comparing BEV-DWPVO with BEV(CNNs+MLPs), and BEV(Global/Local-Corr).*
 
 ## Environment Setup
 
