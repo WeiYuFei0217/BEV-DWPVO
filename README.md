@@ -25,7 +25,7 @@
 ### Visualizations
 ![Qualitative Analysis](./README/figs/qualitative.png)
 
-*Trajectory and keypoint matching visualization. The NCLT dataset uses a forward monocular camera, while the Oxford dataset uses a rear monocular camera.*
+*Visualization of trajectories and keypoint matching on NCLT (forward camera) and Oxford (rear camera) datasets.*
 
 ![Oxford Intermediate](./README/figs/oxford_intermediate.gif)
 
