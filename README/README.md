@@ -14,26 +14,33 @@
 
 ### Framework
 ![System framework](./figs/BEV-DWPVO.jpg)
+
 *Overview of the proposed BEV-DWPVO framework, including the PV-BEV encoder, keypoint extraction module, and pose estimation module.*
 
 ### Performance Comparison
 ![NCLT Comparison](./figs/Performance_comparison.png)
+
 *Performance comparison of different methods on NCLT and Oxford datasets. Our method achieves the best overall performance across all metrics.*
 
 ### Visualizations
 ![Qualitative Analysis](./figs/qualitative.png)
+
 *Trajectory and keypoint matching visualization. The NCLT dataset uses a forward monocular camera, while the Oxford dataset uses a rear monocular camera.*
 
 ![Oxford Intermediate](./figs/oxford_intermediate.gif)
+
 *Intermediate Processes and Visualizations on Oxford seq. 01-11-12, showing keypoint extraction and matching in BEV space.*
 
-![NCLT Intermediate](./figs/nclt_intermediate.gif) 
+![NCLT Intermediate](./figs/nclt_intermediate.gif)
+
 *Intermediate Processes and Visualizations on NCLT seq. 12-03-17, demonstrating robust performance under challenging conditions.*
 
 ![Oxford Comparison](./figs/oxford_comparison.gif)
+
 *Experiments on Oxford seq. 01-11-12 comparing BEV-DWPVO with ORB-SLAM3, DF-VO, and DROID-SLAM.*
 
 ![NCLT Comparison](./figs/nclt_comparison.gif)
+
 *Experiments on NCLT seq. 12-03-17 comparing BEV-DWPVO with BEV(CNNs+MLPs), BEV(Global-Corr), and BEV(Local-Corr).*
 
 ## Environment Setup
