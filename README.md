@@ -1,5 +1,12 @@
-# BEV-DWPVO
-BEV-DWPVO: BEV-based Differentiable Weighted Procrustes for Low Scale-drift Monocular Visual Odometry on Ground
+# BEV-DWPVO: BEV-based Differentiable Weighted Procrustes for Low Scale-drift Monocular Visual Odometry on Ground
+
+## Table of Contents
+
+- [Introduction](#Introduction)
+
+- [Environment Setup](#environment-setup)
+
+- [Training/Testing](#trainingtesting)
 
 ## Introduction
 
