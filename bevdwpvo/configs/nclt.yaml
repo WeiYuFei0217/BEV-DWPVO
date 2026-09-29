@@ -1,0 +1,70 @@
+dataset:
+  name: NCLT
+  data_root: /path/to/NCLT                  # contains format_data/
+  pair_index_dir: pair_index/NCLT           # relative to the repository root
+  pair_index_file: pickle_d0_d2_r15_r45.txt
+  train_sequences: ["2013-04-05", "2012-01-08", "2012-02-04"]
+  test_sequences: ["2012-03-17", "2012-02-02", "2012-02-19", "2012-08-20"]
+  test_stride: 5
+  rot_pair_ratio: 0.7
+
+model:
+  bev_half: front               # keep the half of the BEV map observed by the camera
+  bev_size: 256                 # BEV grid size (cells)
+  bev_resolution: 0.4           # BEV cell size (m)
+  encoder:
+    final_dim: [224, 384]
+    downsample_factor: 8
+    output_channels: 80
+    img_backbone_conf:
+      type: 'ResNet'
+      depth: 50
+      frozen_stages: 0
+      out_indices: [0, 1, 2, 3]
+      norm_eval: false
+      init_cfg:
+        type: 'Pretrained'
+        checkpoint: 'torchvision://resnet50'
+    img_neck_conf:
+      type: 'SECONDFPN'
+      in_channels: [256, 512, 1024, 2048]
+      upsample_strides: [0.5, 1, 2, 4]
+      out_channels: [128, 128, 128, 128]
+    depth_net_conf:
+      in_channels: 512
+      mid_channels: 512
+  solver:
+    device: "cuda:0"
+    window_size: 2
+    unet:
+      bilinear: true
+      first_feature_dimension: 8
+      score_sigmoid: true
+    keypoint_patch_size: 8
+    softmax_temp: 0.01
+    score_comp: true
+    vis_keypoint_nms: 0.01
+
+train:
+  seed: 2025
+  num_workers: 6
+  batch_size: 16
+  epochs: 50
+  lr: 0.0001
+  lr_decay: 0.95
+  weight_decay: 0.0001
+  grad_clip: true
+  max_norm: 1.0
+  rot_loss_weight: 10
+  use_match_range: true
+  match_range: 12.8             # m
+  gkp: true                     # Global Keypoint Pre-training
+  gkp_steps: 20000
+  gct: false                    # Guided Convergence for Translation
+  gct_steps: 10000
+  disable_validity_weights: false
+
+test:
+  batch_size: 1
+  num_workers: 4
+  checkpoint: weights/bevdwpvo_nclt.pth    # relative to the repository root

@@ -1,0 +1,70 @@
+dataset:
+  name: kitti
+  data_root: /path/to/kitti                 # contains data_odometry_color/ and poses/
+  pair_index_dir: pair_index/kitti          # relative to the repository root
+  pair_index_file: pickle_d0_d4_r15_r45.txt
+  train_sequences: ["00", "01", "02", "03", "04", "05", "06", "07", "08"]
+  test_sequences: ["09", "10"]
+  test_stride: {"09": 2, "10": 3}
+  rot_pair_ratio: 0.5
+
+model:
+  bev_half: front               # keep the half of the BEV map observed by the camera
+  bev_size: 256                 # BEV grid size (cells)
+  bev_resolution: 0.4           # BEV cell size (m)
+  encoder:
+    final_dim: [384, 1216]
+    downsample_factor: 16
+    output_channels: 80
+    img_backbone_conf:
+      type: 'ResNet'
+      depth: 50
+      frozen_stages: 0
+      out_indices: [0, 1, 2, 3]
+      norm_eval: false
+      init_cfg:
+        type: 'Pretrained'
+        checkpoint: 'torchvision://resnet50'
+    img_neck_conf:
+      type: 'SECONDFPN'
+      in_channels: [256, 512, 1024, 2048]
+      upsample_strides: [0.25, 0.5, 1, 2]
+      out_channels: [128, 128, 128, 128]
+    depth_net_conf:
+      in_channels: 512
+      mid_channels: 512
+  solver:
+    device: "cuda:0"
+    window_size: 2
+    unet:
+      bilinear: true
+      first_feature_dimension: 8
+      score_sigmoid: true
+    keypoint_patch_size: 8
+    softmax_temp: 0.01
+    score_comp: true
+    vis_keypoint_nms: 0.01
+
+train:
+  seed: 2025
+  num_workers: 6
+  batch_size: 16
+  epochs: 50
+  lr: 0.0001
+  lr_decay: 0.95
+  weight_decay: 0.0001
+  grad_clip: false
+  max_norm: 1.0
+  rot_loss_weight: 10
+  use_match_range: true
+  match_range: 25.6             # m
+  gkp: true                     # Global Keypoint Pre-training
+  gkp_steps: 5000
+  gct: false                    # Guided Convergence for Translation
+  gct_steps: 2000
+  disable_validity_weights: false
+
+test:
+  batch_size: 1
+  num_workers: 4
+  checkpoint: weights/bevdwpvo_kitti.pth   # relative to the repository root

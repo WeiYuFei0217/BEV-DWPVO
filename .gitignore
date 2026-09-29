@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.so
+*.egg-info/
+build/
+outputs/
+weights/
+pair_index/
